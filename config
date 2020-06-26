@@ -2,33 +2,46 @@ separator=true
 separator_block_width=12
 
 [disk_root]
-command=./disk "/"
-interval=10
+command=./disk '/'
+interval=5
+color=#75715e
 
 [disk_home]
-command=./disk "/home"
-interval=10
+command=./disk '/home'
+interval=5
+color=#75715e
 
 [kernel]
-command=uname -s -r
+command=echo $(uname -s -r)
 interval=once
+color=#f4bf75
 
 [uptime]
-command=uptime -p | awk '{$1="U:"; print}'
-interval=300
+command=echo up: $(uptime -p | awk '{$1=""; print}')
+interval=60
+color=#a6e22e
+
+[volume]
+command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%
+interval=1
+color=#ae81ff
 
 [cpu_temp]
-command=sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print "T: " $4}'
-interval=5
+command=echo temp: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
+interval=3
+color=#f92672
 
 [weather]
 command=curl "wttr.in/Hayward?m&format=3" | awk '{print $2 ": " $3}'
 interval=3600
+color=#a1efe4
 
 [sunset]
-command=echo S: $(./sunset)
+command=echo sun: $(./sunset)
 interval=14400
+color=#f4bf75
 
 [time]
 command=date '+%a %Y-%m-%d %H:%M:%S'
 interval=1
+
