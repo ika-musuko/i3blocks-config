@@ -1,0 +1,34 @@
+separator=true
+separator_block_width=12
+
+[disk_root]
+command=./disk "/"
+interval=10
+
+[disk_home]
+command=./disk "/home"
+interval=10
+
+[kernel]
+command=uname -s -r
+interval=once
+
+[uptime]
+command=uptime -p | awk '{$1="U:"; print}'
+interval=300
+
+[cpu_temp]
+command=sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print "T: " $4}'
+interval=5
+
+[weather]
+command=curl "wttr.in/Hayward?m&format=3" | awk '{print $2 ": " $3}'
+interval=3600
+
+[sunset]
+command=echo S: $(./sunset)
+interval=14400
+
+[time]
+command=date '+%a %Y-%m-%d %H:%M:%S'
+interval=1
