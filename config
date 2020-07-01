@@ -1,6 +1,10 @@
 separator=true
 separator_block_width=12
 
+[cmus]
+command=./cmus-info
+interval=1
+
 [disk_root]
 command=./disk '/'
 interval=5
@@ -14,10 +18,10 @@ color=#75715e
 [kernel]
 command=echo $(uname -s -r)
 interval=once
-color=#f4bf75
+color=#66d9ef
 
 [uptime]
-command=echo up: $(uptime -p | awk '{$1=""; print}')
+command=awk '{print "up: "int($1/86400)"d "int(($1%86400)/3600)"h "int(($1%3600)/60)"m"}' /proc/uptime  
 interval=60
 color=#a6e22e
 
