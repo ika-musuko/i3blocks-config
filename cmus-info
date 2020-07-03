@@ -37,5 +37,6 @@ fi
 [ "$title" == "" ] && title=$(cmus_field file 2)
 
 # output
-echo -e $loop_icon $icon'\uFE0E' \($current_time / $total_time\) $artist - $title 
+echo -e $title - $artist \[ $loop_icon $icon'\uFE0E' $current_time / $total_time \]
+
 
