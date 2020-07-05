@@ -2,7 +2,7 @@ separator=true
 separator_block_width=12
 
 [cmus]
-command=./cmus-info
+command=./cmus-info; [ $button = 1 ] && cmus-remote -u; [ $button = 3 ] && cmus-remote -n; [ $button = 2 ] && cmus-remote -r
 interval=1
 
 [disk_root]
