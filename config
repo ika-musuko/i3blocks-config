@@ -2,36 +2,41 @@ separator=true
 separator_block_width=12
 
 [cmus]
-command=./cmus-info; [ $button = 1 ] && cmus-remote -u; [ $button = 3 ] && cmus-remote -n; [ $button = 2 ] && cmus-remote -r
+command=cmus-info; [ $button = 1 ] && cmus-remote -u; [ $button = 3 ] && cmus-remote -n; [ $button = 2 ] && cmus-remote -r; [ $button = 9 ] && cmus-remote -C "toggle repeat_current"; [ $button = 4 ] && cmus-remote -k +1; [ $button = 5 ] && cmus-remote -k -1
 interval=1
 
 [disk_root]
-command=./disk '/'
+command=disk '/'
 interval=5
 color=#75715e
 
 [disk_home]
-command=./disk '/home'
+command=disk '/home'
 interval=5
 color=#75715e
 
-[kernel]
-command=echo $(uname -s -r)
-interval=once
+[memory]
+command=echo M: $(neomem)
+interval=1
 color=#66d9ef
 
+[kernel]
+command=echo K: $(uname -s -r)
+interval=once
+color=#f4bf75
+
 [uptime]
-command=awk '{print "up: "int($1/86400)"d "int(($1%86400)/3600)"h "int(($1%3600)/60)"m"}' /proc/uptime  
+command=awk '{print "U: "int($1/86400)"d "int(($1%86400)/3600)"h "int(($1%3600)/60)"m"}' /proc/uptime  
 interval=60
 color=#a6e22e
 
 [volume]
-command=[ $(pamixer --get-mute) = "false" ] && printf "vol: " || printf "MUTE: " && echo $(pamixer --get-volume)%
+command=[ $(pamixer --get-mute) = "false" ] && printf "V: " || printf "MUTE: " && echo $(pamixer --get-volume)%; [ $button = 4 ] && pamixer --increase 5; [ $button = 5 ] && pamixer --decrease 5;
 interval=1
 color=#ae81ff
 
 [cpu_temp]
-command=echo temp: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
+command=echo T: $(sensors coretemp-isa-0000 | head -n 3 | tail -n 1 | awk '{print $4}')
 interval=3
 color=#f92672
 
@@ -41,7 +46,7 @@ interval=3600
 color=#a1efe4
 
 [sunset]
-command=echo sun: $(./sunset)
+command=echo S: $(sunset)
 interval=14400
 color=#f4bf75
 
